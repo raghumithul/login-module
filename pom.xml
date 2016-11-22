@@ -37,11 +37,11 @@
         </dependency>
         
         <!-- MongoDB Driver -->
-        <dependency>
+        <!-- <dependency>
        		<groupId>org.mongodb</groupId>
        		<artifactId>mongo-java-driver</artifactId>
        		<version>3.0.4</version>
-		</dependency>
+		</dependency> -->
     </dependencies>
 	
 	<build>
