@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.loginpoc.demo.model.Account;
 import com.loginpoc.demo.repositories.AccountRepository;
@@ -24,6 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Autowired
 	AccountRepository accountRepository;
 	
+	 @Autowired
+	 PersistentTokenRepository repository;
 	
 	@Bean
 	protected UserDetailsService userDetailsService() {
@@ -60,7 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
 				.logoutSuccessUrl("/login")
 				.permitAll()
 				.and()
-				.rememberMe();
+				.rememberMe()
+				.tokenRepository(repository);
 	}
 	
 	
