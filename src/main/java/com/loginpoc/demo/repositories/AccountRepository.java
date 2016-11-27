@@ -1,6 +1,6 @@
 package com.loginpoc.demo.repositories;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -10,5 +10,5 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 
 	public Account findByUsername(String username);
 	
-	public 	Collection<Account> getAllAccounts();
+	public 	List<Account> findAll();
 }

@@ -1,5 +1,9 @@
 package com.loginpoc.demo;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.loginpoc.demo.model.Account;
+import com.loginpoc.demo.model.Role;
 import com.loginpoc.demo.repositories.AccountRepository;
 
 
@@ -39,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
 				Account account = accountRepository.findByUsername(username);
 				if (account != null) {
 					return new User(account.getUsername(), account.getPassword(), true, true, true, true,
-							AuthorityUtils.createAuthorityList("USER"));
+							getGrantedAuthorities(account));
 				}
 				return null;
 			}
@@ -51,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
 		http.authorizeRequests()
 
 				.antMatchers("/").permitAll()
+				.antMatchers("/accounts").hasAuthority("ADMIN")
 				.anyRequest().fullyAuthenticated()
 				.and()
 				.formLogin()
@@ -77,6 +84,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService());
+	}
+	
+	private Collection<SimpleGrantedAuthority> getGrantedAuthorities(Account account) {
+		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+		for(Role role : account.getRoles()){
+			authorities.add(new SimpleGrantedAuthority(role.toString()));
+		}
+		return authorities;
 	}
 	
 	

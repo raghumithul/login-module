@@ -1,6 +1,7 @@
 package com.loginpoc.demo.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,9 @@ public class AccountService {
 	@Autowired
 	AccountRepository accountRepository;
 	
-	public Collection<Account> getAllAccountDetails(){
+	public List<Account> getAllAccountDetails(){
 		
-		return accountRepository.getAllAccounts();
+		return accountRepository.findAll();
 	}
 	
 	

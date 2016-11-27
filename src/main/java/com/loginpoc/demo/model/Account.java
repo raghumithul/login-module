@@ -1,5 +1,7 @@
 package com.loginpoc.demo.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 
 public class Account {
@@ -8,6 +10,8 @@ public class Account {
 	private String id;
 	private String username;
 	private String password;
+	private List<Role> roles;
+	
 	
 	public Account(String username, String password) {
 		this.username = username;
@@ -34,5 +38,13 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
 	
 }

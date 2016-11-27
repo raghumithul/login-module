@@ -18,4 +18,5 @@ public class AccountController {
 	public ModelAndView getAccountDeatils(){
 		return new ModelAndView("accounts", "account", accountService.getAllAccountDetails());
 	}
+	
 }
