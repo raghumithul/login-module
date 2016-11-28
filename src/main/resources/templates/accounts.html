@@ -4,6 +4,7 @@
         <title>Account Details</title>
     </head>
     <body>
+     <p> <a th:href="@{/}">Back</a> </p>
         <h1>Account Details</h1>
         <table>
 	<tr th:each="account : ${account}">
@@ -11,5 +12,10 @@
         <td th:text="${account.username}"></td>
     </tr>
        </table>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        
+       
     </body>
 </html>

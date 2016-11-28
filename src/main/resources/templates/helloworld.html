@@ -4,5 +4,8 @@
 </head>
 <body>
 <h1>${message}</h1>
+ <div th:if="${param.logout}">
+            You have been logged out.
+        </div>    
 </body>
 </html>
